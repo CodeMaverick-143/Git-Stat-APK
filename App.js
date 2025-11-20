@@ -11,6 +11,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Constants from 'expo-constants';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function App() {
   const [username, setUsername] = useState('');
@@ -93,22 +94,32 @@ export default function App() {
 
       {userProfile && (
         <View style={styles.profileBox}>
-          <Text style={styles.sectionTitle}>👤 GitHub Profile</Text>
+          <View style={styles.sectionTitleContainer}>
+            <Ionicons name="person" size={20} color="#000" style={styles.icon} />
+            <Text style={styles.sectionTitle}>GitHub Profile</Text>
+          </View>
           <Text>Name: {userProfile.name || 'N/A'}</Text>
           <Text>Username: {userProfile.login}</Text>
           <Text>Bio: {userProfile.bio || 'N/A'}</Text>
           <Text>Followers: {userProfile.followers}</Text>
           <Text>Following: {userProfile.following}</Text>
           <Text>Public Repos: {userProfile.public_repos}</Text>
-          <TouchableOpacity onPress={() => Linking.openURL(userProfile.html_url)}>
-            <Text style={styles.link}>🔗 View on GitHub</Text>
+          <TouchableOpacity
+            onPress={() => Linking.openURL(userProfile.html_url)}
+            style={styles.linkContainer}
+          >
+            <Ionicons name="link" size={16} color="#2563eb" style={styles.icon} />
+            <Text style={styles.link}>View on GitHub</Text>
           </TouchableOpacity>
         </View>
       )}
 
       {stats && (
         <View style={styles.statsBox}>
-          <Text style={styles.sectionTitle}>📊 GitHub Stats</Text>
+          <View style={styles.sectionTitleContainer}>
+            <Ionicons name="stats-chart" size={20} color="#000" style={styles.icon} />
+            <Text style={styles.sectionTitle}>GitHub Stats</Text>
+          </View>
           <Text>Total Repositories: {stats.totalRepos}</Text>
           <Text>Total Stars: {stats.totalStars}</Text>
           <Text>Total PRs: {stats.totalPRs}</Text>
@@ -118,7 +129,10 @@ export default function App() {
 
       {repos.length > 0 && (
         <View style={styles.reposSection}>
-          <Text style={styles.sectionTitle}>📦 Repositories</Text>
+          <View style={styles.sectionTitleContainer}>
+            <Ionicons name="cube" size={20} color="#000" style={styles.icon} />
+            <Text style={styles.sectionTitle}>Repositories</Text>
+          </View>
           {repos.map((repo, index) => (
             <TouchableOpacity key={index} onPress={() => Linking.openURL(repo.html_url)}>
               <Text style={styles.repoLink}>{repo.name}</Text>
@@ -157,13 +171,13 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   profileBox: {
-    backgroundColor: '#cffafe', // cyan-100
+    backgroundColor: '#cffafe',
     padding: 16,
     borderRadius: 12,
     marginTop: 16,
   },
   statsBox: {
-    backgroundColor: '#f3f4f6', // gray-100
+    backgroundColor: '#f3f4f6',
     padding: 16,
     borderRadius: 12,
     marginTop: 16,
@@ -173,13 +187,25 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 8,
   },
-  link: {
-    color: '#2563eb', // blue-600
-    fontWeight: '600',
+  sectionTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  icon: {
+    marginRight: 8,
+  },
+  linkContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 8,
   },
+  link: {
+    color: '#2563eb',
+    fontWeight: '600',
+  },
   repoLink: {
-    color: '#3b82f6', // blue-500
+    color: '#3b82f6',
     marginVertical: 4,
   },
   reposSection: {
